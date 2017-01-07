@@ -3,7 +3,7 @@
 let ticking;
 const animations = [];
 
-export function animationframes (delay, duration) {
+export function frames (delay, duration) {
   const now = Date.now();
 
   const start = now + delay;

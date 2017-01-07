@@ -11,18 +11,22 @@ Create animation frames with delay and duration
 ## oldskool
 ```html
 <script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
+<script>
+const { frames, ease } = animationframes;
+...
+</script>
 ```
 
 ## usage
 
 ```js
-import { animationframes, ease } from 'animationframes';
+import { frames, ease } from 'animationframes';
 
 const translate = (x, y) => `translate(${x}%, ${y}%)`;
 
 const el = document.createElement('h1');
 
-const animation = animationframes(0, 1000)
+const animation = frames(0, 1000)
   .start(() => {
     el.style.transform = translate(-100, 0);
   })
