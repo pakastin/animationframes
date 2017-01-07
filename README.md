@@ -27,7 +27,8 @@ const animation = animationframes(0, 1000)
     el.style.transform = translate(-100, 0);
   })
   .progress((t) => {
-    const x = -100 * (1 - ease.quartInOut(t));
+    const e = ease.quartInOut(t);
+    const x = -100 * (1 - e);
 
     el.style.transform = translate(x, 0);
   })
