@@ -8,15 +8,6 @@ Minimalistic way to create JS animations (~1.5 KB). Use [prefix](https://github.
 ## install
     npm install animationframes
 
-## oldskool
-```html
-<script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
-<script>
-const { frames, ease } = animationframes;
-...
-</script>
-```
-
 ## usage
 
 ```js
@@ -45,6 +36,15 @@ el.textContent = 'Hello world!';
 document.body.appendChild(el);
 ```
 https://jsfiddle.net/o6vac675/4/
+
+## oldskool
+```html
+<script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
+<script>
+const { frames, ease } = animationframes;
+...
+</script>
+```
 
 ## License
 [MIT](https://github.com/pakastin/animationframes/blob/master/LICENSE)
