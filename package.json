@@ -1,7 +1,7 @@
 {
   "name": "animationframes",
   "version": "1.0.0",
-  "description": "Animation frames",
+  "description": "Create animation frames with delay and duration",
   "module": "dist/animationframes.es.js",
   "main": "dist/animationframes.js",
   "scripts": {
