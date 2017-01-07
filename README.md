@@ -18,16 +18,18 @@ Create animation frames with delay and duration
 ```js
 import { animationframes, ease } from 'animationframes';
 
+const translate = (x, y) => `translate(${x}px, ${y}px)`;
+
 const el = document.createElement('p');
 
 const animation = animationframes(0, 1000)
   .start(() => {
-    el.style.transform = 'translate(0, -100px)';
+    el.style.transform = translate(0, -100);
   })
   .progress((t) => {
     const x = -100 * (1 - ease.quartInOut(t));
 
-    el.style.transform = `translate(${x}px, 0)`;
+    el.style.transform = translate(x, 0);
   })
   .end(() => {
     el.style.transform = '';
