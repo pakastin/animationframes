@@ -40,7 +40,7 @@ el.textContent = 'Hello world!';
 
 document.body.appendChild(el);
 ```
-https://jsfiddle.net/o6vac675/1/
+https://jsfiddle.net/o6vac675/2/
 
 ## License
 [MIT](https://github.com/pakastin/animationframes/blob/master/LICENSE)
