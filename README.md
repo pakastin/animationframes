@@ -24,7 +24,7 @@ const el = document.createElement('p');
 
 const animation = animationframes(0, 1000)
   .start(() => {
-    el.style.transform = translate(0, -100);
+    el.style.transform = translate(-100, 0);
   })
   .progress((t) => {
     const x = -100 * (1 - ease.quartInOut(t));
