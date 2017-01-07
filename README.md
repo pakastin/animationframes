@@ -18,9 +18,9 @@ Create animation frames with delay and duration
 ```js
 import { animationframes, ease } from 'animationframes';
 
-const translate = (x, y) => `translate(${x}px, ${y}px)`;
+const translate = (x, y) => `translate(${x}%, ${y}%)`;
 
-const el = document.createElement('p');
+const el = document.createElement('h1');
 
 const animation = animationframes(0, 1000)
   .start(() => {
@@ -34,8 +34,13 @@ const animation = animationframes(0, 1000)
   })
   .end(() => {
     el.style.transform = '';
-  })
+  });
+
+el.textContent = 'Hello world!';
+
+document.body.appendChild(el);
 ```
+https://jsfiddle.net/o6vac675/1/
 
 ## License
 [MIT](https://github.com/pakastin/animationframes/blob/master/LICENSE)
