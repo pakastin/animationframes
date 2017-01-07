@@ -1,0 +1,23 @@
+{
+  "name": "animationframes",
+  "version": "1.0.0",
+  "description": "Animation frames",
+  "module": "dist/animationframes.es.js",
+  "main": "dist/animationframes.js",
+  "scripts": {
+    "dist": "gh-pages -d dist",
+    "build": "npm run build-js && npm run build-es && npm run uglify",
+    "build-js": "rollup -c -f umd --name animationframes src/index.js -o dist/animationframes.js",
+    "build-es": "rollup -c -f es src/index.js -o dist/animationframes.es.js",
+    "uglify": "uglifyjs dist/animationframes.js -cmo dist/animationframes.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juha Lindstedt",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "~0.12.0",
+    "rollup": "~0.41.1",
+    "rollup-plugin-buble": "~0.15.0",
+    "uglify-js": "~2.7.5"
+  }
+}
