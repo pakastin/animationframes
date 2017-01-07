@@ -3,7 +3,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/pakastin.svg?style=social&maxAge=3600)](https://twitter.com/pakastin)
 
 # animationframes
-Create animation frames with delay and duration
+Minimalistic way to create JS animations (~1.5 KB). Use [prefix](https://github.com/pakastin/prefix) to auto-prefix CSS properties.
 
 ## install
     npm install animationframes
