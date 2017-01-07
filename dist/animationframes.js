@@ -9,7 +9,7 @@
 var ticking;
 var animations = [];
 
-function animationframes (delay, duration) {
+function frames (delay, duration) {
   var now = Date.now();
 
   var start = now + delay;
@@ -133,7 +133,7 @@ var ease = {
   }
 };
 
-exports.animationframes = animationframes;
+exports.frames = frames;
 exports.ease = ease;
 
 Object.defineProperty(exports, '__esModule', { value: true });

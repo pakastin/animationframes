@@ -3,7 +3,7 @@
 var ticking;
 var animations = [];
 
-function animationframes (delay, duration) {
+function frames (delay, duration) {
   var now = Date.now();
 
   var start = now + delay;
@@ -127,4 +127,4 @@ var ease = {
   }
 };
 
-export { animationframes, ease };
+export { frames, ease };
