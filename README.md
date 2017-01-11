@@ -39,6 +39,9 @@ https://jsfiddle.net/o6vac675/4/
 
 Another example: https://jsfiddle.net/pakastin/fjozqopm/
 
+## easings
+Available easings (you can use your own!): https://github.com/pakastin/animationframes/blob/master/src/ease.js
+
 ## oldskool
 ```html
 <script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
