@@ -3,15 +3,44 @@
 let ticking;
 const animations = [];
 
-export function frames (delay, duration) {
+const tick = () => {
   const now = Date.now();
 
-  const start = now + delay;
-  const end = start + duration;
+  if (!animations.length) {
+    ticking = false;
+    return;
+  }
+
+  for (let i = 0; i < animations.length; i++) {
+    const animation = animations[i];
+
+    if (now < animation.start) {
+      continue;
+    }
+    if (!animation.started) {
+      animation.started = true;
+      animation.startcb && animation.startcb();
+    }
+
+    const t = (now - animation.start) / (animation.end - animation.start);
+
+    animation.progresscb && animation.progresscb(t < 1 ? t : 1);
+
+    if (now > animation.end) {
+      animation.endcb && animation.endcb();
+      animations.splice(i--, 1);
+      continue;
+    }
+  }
+  requestAnimationFrame(tick);
+};
+
+export const frames = (delay, duration) => {
+  const now = Date.now();
 
   const animation = {
-    start: start,
-    end: end,
+    start: now + delay,
+    end: now + delay + duration,
     started: false,
     startcb: null,
     progresscb: null,
@@ -47,40 +76,8 @@ export function frames (delay, duration) {
     }
   };
   return self;
-}
+};
 
-function tick () {
-  const now = Date.now();
-
-  if (!animations.length) {
-    ticking = false;
-    return;
-  }
-
-  for (let i = 0; i < animations.length; i++) {
-    const animation = animations[i];
-
-    if (now < animation.start) {
-      continue;
-    }
-    if (!animation.started) {
-      animation.started = true;
-      animation.startcb && animation.startcb();
-    }
-
-    const t = (now - animation.start) / (animation.end - animation.start);
-
-    animation.progresscb && animation.progresscb(t < 1 ? t : 1);
-
-    if (now > animation.end) {
-      animation.endcb && animation.endcb();
-      animations.splice(i--, 1);
-      continue;
-    }
-  }
-  requestAnimationFrame(tick);
-}
-
-window.requestAnimationFrame || (window.requestAnimationFrame = function (cb) {
+window.requestAnimationFrame || (window.requestAnimationFrame = (cb) => {
   setTimeout(cb, 0);
 });
