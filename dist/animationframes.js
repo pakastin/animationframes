@@ -110,9 +110,9 @@ var ease = {
   quintIn: easeInBy(5),
   quintOut: easeOutBy(5),
   quintInOut: easeInOutBy(5),
-  sinIn: function (t) { return 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2); },
-  sinOut: function (t) { return Math.sin(Math.PI / 2 * t); },
-  sinInOut: function (t) { return (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2; }
+  sineIn: function (t) { return 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2); },
+  sineOut: function (t) { return Math.sin(Math.PI / 2 * t); },
+  sineInOut: function (t) { return (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2; }
 };
 
 exports.frames = frames;
