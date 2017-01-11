@@ -21,7 +21,7 @@ export const ease = {
   quintIn: easeInBy(5),
   quintOut: easeOutBy(5),
   quintInOut: easeInOutBy(5),
-  sinIn: t => 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2),
-  sinOut: t => Math.sin(Math.PI / 2 * t),
-  sinInOut: t => (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2
+  sineIn: t => 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2),
+  sineOut: t => Math.sin(Math.PI / 2 * t),
+  sineInOut: t => (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2
 };
