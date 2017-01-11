@@ -112,7 +112,25 @@ var ease = {
   quintInOut: easeInOutBy(5),
   sineIn: function (t) { return 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2); },
   sineOut: function (t) { return Math.sin(Math.PI / 2 * t); },
-  sineInOut: function (t) { return (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2; }
+  sineInOut: function (t) { return (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2; },
+  bounce: function (t) {
+    var s = 7.5625;
+    var p = 2.75;
+
+    if (t < 1 / p) {
+      return s * t * t;
+    }
+    if (t < 2 / p) {
+      t -= 1.5 / p;
+      return s * t * t + 0.75;
+    }
+    if (t < 2.5 / p) {
+      t -= 2.25 / p;
+      return s * t * t + 0.9375;
+    }
+    t -= 2.625 / p;
+    return s * t * t + 0.984375;
+  }
 };
 
 exports.frames = frames;
