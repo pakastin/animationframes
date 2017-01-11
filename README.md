@@ -37,6 +37,8 @@ document.body.appendChild(el);
 ```
 https://jsfiddle.net/o6vac675/4/
 
+Another example: https://jsfiddle.net/pakastin/fjozqopm/
+
 ## oldskool
 ```html
 <script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
