@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "description": "Create animation frames with delay and duration",
   "module": "dist/animationframes.es.js",
+  "jsnext:main": "dist/animationframes.es.js",
   "main": "dist/animationframes.js",
   "scripts": {
     "dist": "gh-pages -d dist",
