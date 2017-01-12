@@ -5,6 +5,8 @@
 # animationframes
 Minimalistic way to create JS animations (~1.5 KB). Use [prefix](https://github.com/pakastin/prefix) to auto-prefix CSS properties.
 
+Battle-tested in my [HTML5 Deck of Cards](https://deck-of-cards.js.org), [source](https://github.com/pakastin/deck-of-cards/blob/master/lib/card.js#L65).
+
 ## install
     npm install animationframes
 
