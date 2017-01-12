@@ -1,6 +1,6 @@
 {
   "name": "animationframes",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Create animation frames with delay and duration",
   "module": "dist/animationframes.es.js",
   "jsnext:main": "dist/animationframes.es.js",
