@@ -77,7 +77,3 @@ export const frames = (delay, duration) => {
   };
   return self;
 };
-
-window.requestAnimationFrame || (window.requestAnimationFrame = (cb) => {
-  setTimeout(cb, 0);
-});
