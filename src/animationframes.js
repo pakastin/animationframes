@@ -6,11 +6,6 @@ const animations = [];
 const tick = () => {
   const now = Date.now();
 
-  if (!animations.length) {
-    ticking = false;
-    return;
-  }
-
   for (let i = 0; i < animations.length; i++) {
     const animation = animations[i];
 
@@ -32,6 +27,12 @@ const tick = () => {
       continue;
     }
   }
+
+  if (!animations.length) {
+    ticking = false;
+    return;    
+  }
+
   requestAnimationFrame(tick);
 };
 
