@@ -68,12 +68,7 @@ export const frames = (delay, duration) => {
       return self;
     },
     destroy: function () {
-      for (let i = 0; i < animations.length; i++) {
-        if (animations[i] === animation) {
-          animations.splice(i--, 1);
-          break;
-        }
-      }
+      animations = animations.filter(a => a !== animation);
     }
   };
   return self;
