@@ -1,15 +1,17 @@
-/* global requestAnimationFrame */
+var requestAnimationFrame = window.requestAnimationFrame || function requestAnimationFrame (cb) {
+  setTimeout(cb, 0);
+};
 
-var ticking;
-var animations = [];
-
-var tick = function () {
+var Animations = function Animations () {
+  this.animations = [];
+};
+Animations.prototype.add = function add (animation) {
+  this.animations.push(animation);
+};
+Animations.prototype.render = function render () {
+  var ref = this;
+    var animations = ref.animations;
   var now = Date.now();
-
-  if (!animations.length) {
-    ticking = false;
-    return;
-  }
 
   for (var i = 0; i < animations.length; i++) {
     var animation = animations[i];
@@ -17,81 +19,53 @@ var tick = function () {
     if (now < animation.start) {
       continue;
     }
+
     if (!animation.started) {
       animation.started = true;
-      animation.startcb && animation.startcb();
+      animation.onstart && animation.onstart();
     }
 
-    var t = (now - animation.start) / (animation.end - animation.start);
+    var t = Math.min(1, (now - animation.start) / (animation.end - animation.start));
+    var e = animation.ease(t);
 
-    animation.progresscb && animation.progresscb(t < 1 ? t : 1);
+    animation.onprogress && animation.onprogress(e, t);
 
-    if (now > animation.end) {
-      animation.endcb && animation.endcb();
+    if (now >= animation.end) {
+      animation.onend && animation.onend();
       animations.splice(i--, 1);
       continue;
     }
   }
-  requestAnimationFrame(tick);
 };
+Animations.prototype.remove = function remove (animation) {
+  var ref = this;
+    var animations = ref.animations;
 
-var frames = function (delay, duration) {
-  var now = Date.now();
-
-  var animation = {
-    start: now + delay,
-    end: now + delay + duration,
-    started: false,
-    startcb: null,
-    progresscb: null,
-    endcb: null
-  };
-
-  animations.push(animation);
-
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(tick);
-  }
-  var self = {
-    start: function (cb) {
-      animation.startcb = cb;
-      return self;
-    },
-    progress: function (cb) {
-      animation.progresscb = cb;
-      return self;
-    },
-    end: function (cb) {
-      animation.endcb = cb;
-      return self;
-    },
-    destroy: function () {
-      for (var i = 0; i < animations.length; i++) {
-        if (animations[i] === animation) {
-          animations.splice(i--, 1);
-          break;
-        }
-      }
+  for (var i = 0; i < animations.length; i++) {
+    if (animations[i] === this) {
+      animations.splice(i--, 1);
     }
-  };
-  return self;
+  }
 };
 
-window.requestAnimationFrame || (window.requestAnimationFrame = function (cb) {
-  setTimeout(cb, 0);
-});
+var animations = new Animations();
+
+var linear = function (t) { return t; };
 
 var easeInBy = function (power) { return function (t) { return Math.pow(t, power); }; };
-
 var easeOutBy = function (power) { return function (t) { return 1 - Math.abs(Math.pow(t - 1, power)); }; };
 
-var easeInOutBy = function (power) { return function (t) { return t < 0.5 ? easeInBy(power)(t * 2) / 2 : easeOutBy(power)(t * 2 - 1) / 2 + 0.5; }; };
+var easeInOutBy = function (power) { return function (t) {
+  if (t < 0.5) {
+    return easeInBy(power)(t * 2) / 2;
+  } else {
+    return easeOutBy(power)(t * 2 - 1) / 2 + 0.5;
+  }
+}; };
 
 var ease = {
-  linear: function (t) {
-    return t;
-  },
+  linear: linear,
+
   quadIn: easeInBy(2),
   quadOut: easeOutBy(2),
   quadInOut: easeInOutBy(2),
@@ -104,10 +78,12 @@ var ease = {
   quintIn: easeInBy(5),
   quintOut: easeOutBy(5),
   quintInOut: easeInOutBy(5),
+
   sineIn: function (t) { return 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2); },
   sineOut: function (t) { return Math.sin(Math.PI / 2 * t); },
   sineInOut: function (t) { return (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2; },
-  bounce: function (t) {
+
+  bounce: function bounce (t) {
     var s = 7.5625;
     var p = 2.75;
 
@@ -127,4 +103,68 @@ var ease = {
   }
 };
 
-export { frames, ease };
+var rendering;
+
+var AnimationFrames = function AnimationFrames (ref) {
+  if ( ref === void 0 ) ref = {};
+  var delay = ref.delay; if ( delay === void 0 ) delay = 0;
+  var duration = ref.duration; if ( duration === void 0 ) duration = 0;
+  var easing = ref.easing; if ( easing === void 0 ) easing = 'quadOut';
+  var oninit = ref.oninit;
+  var onstart = ref.onstart;
+  var onprogress = ref.onprogress;
+  var onend = ref.onend;
+
+  if (!rendering) {
+    rendering = requestAnimationFrame(render);
+  }
+
+  var now = Date.now();
+
+  this.initTime = now;
+  this.delay = delay;
+  this.duration = duration;
+  this.easing = easing;
+  this.onstart = onstart;
+  this.onprogress = onprogress;
+  this.onend = onend;
+
+  if (!this.ease) {
+    throw new Error('Easing not found');
+  }
+
+  animations.add(this);
+
+  if (oninit) {
+    oninit();
+  }
+};
+
+var prototypeAccessors = { start: { configurable: true },end: { configurable: true },ease: { configurable: true } };
+prototypeAccessors.start.get = function () {
+  return this.initTime + this.delay;
+};
+prototypeAccessors.end.get = function () {
+  return this.start + this.duration;
+};
+prototypeAccessors.ease.get = function () {
+  return ease[this.easing];
+};
+AnimationFrames.prototype.destroy = function destroy () {
+  animations.remove(this);
+};
+AnimationFrames.from = function from (val, e) {
+  return val * (1 - e);
+};
+
+Object.defineProperties( AnimationFrames.prototype, prototypeAccessors );
+
+AnimationFrames.ease = ease;
+
+function render () {
+  animations.render();
+
+  rendering = requestAnimationFrame(render);
+}
+
+export default AnimationFrames;
