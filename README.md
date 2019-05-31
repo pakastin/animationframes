@@ -27,10 +27,10 @@ const animation = new AnimationFrames({
   duration: 1000,
   oninit () {
     el.style.display = 'none';
-  }
+  },
   onstart () {
     el.style.display = '';
-  }
+  },
   onprogress (e) {
     translate(el, from(-100, e), 0);
   },
