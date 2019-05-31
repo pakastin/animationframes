@@ -6,30 +6,36 @@
 Minimalistic way to create JS animations (~1.5 KB). Use [prefix](https://github.com/pakastin/prefix) to auto-prefix CSS properties.
 
 ## install
-    npm install animationframes
+```
+npm install animationframes
+```
 
 ## usage
 
 ```js
-import { frames, ease } from 'animationframes';
+import AnimationFrames from 'animationframes';
 
-const translate = (x, y) => `translate(${x}%, ${y}%)`;
+const translate = (el, x, y) => el.style.transform = `translate(${x}%, ${y}%)`;
+const { from } = AnimationFrames;
 
 const el = document.createElement('h1');
 
-const animation = frames(0, 1000)
-  .start(() => {
-    el.style.transform = translate(-100, 0);
-  })
-  .progress((t) => {
-    const e = ease.quartInOut(t);
-    const x = -100 * (1 - e);
-
-    el.style.transform = translate(x, 0);
-  })
-  .end(() => {
+const animation = new AnimationFrames({
+  delay: 0,
+  duration: 1000,
+  oninit () {
+    el.style.display = 'none';
+  }
+  onstart () {
+    el.style.display = '';
+  }
+  onprogress (e) {
+    translate(el, from(-100, e), 0);
+  },
+  onend () {
     el.style.transform = '';
-  });
+  }
+});
 
 el.textContent = 'Hello world!';
 
@@ -40,13 +46,13 @@ https://jsfiddle.net/o6vac675/4/
 Another example: https://jsfiddle.net/pakastin/fjozqopm/
 
 ## easings
-Available easings (you can use your own!): https://github.com/pakastin/animationframes/blob/master/src/ease.js
+Available easings: https://github.com/pakastin/animationframes/blob/master/src/ease.js
 
 ## oldskool
 ```html
 <script src="https://pakastin.github.io/animationframes/animationframes.min.js"></script>
 <script>
-const { frames, ease } = animationframes;
+const animation = new AnimationFrames( ... );
 ...
 </script>
 ```
