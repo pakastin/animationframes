@@ -43,9 +43,9 @@ el.textContent = 'Hello world!';
 
 document.body.appendChild(el);
 ```
-https://jsfiddle.net/o6vac675/4/
+https://jsfiddle.net/w7zhurx3/
 
-Another example: https://jsfiddle.net/pakastin/fjozqopm/
+Another example: https://jsfiddle.net/1oj7y29g/1/
 
 ## easings
 Available easings: https://github.com/pakastin/animationframes/blob/master/src/ease.js
