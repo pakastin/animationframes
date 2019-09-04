@@ -15,9 +15,9 @@
   "author": "Juha Lindstedt",
   "license": "MIT",
   "devDependencies": {
-    "gh-pages": "~2.0.1",
-    "rollup": "~1.12.5",
-    "rollup-plugin-buble": "~0.19.6",
-    "terser": "~4.0.0"
+    "gh-pages": "~2.1.1",
+    "rollup": "~1.20.3",
+    "rollup-plugin-buble": "~0.19.8",
+    "terser": "~4.2.1"
   }
 }
